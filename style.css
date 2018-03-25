@@ -1,0 +1,49 @@
+html, body {
+    margin : 0;
+    height : 100%;
+}
+
+.heightgroup:hover rect, .heightgroup:hover text{
+    fill : black;
+    opacity: 1.0;
+}
+
+.heightbar {
+    fill : blue;
+}
+
+.weightgroup:hover rect, .weightgroup:hover text{
+    fill : black;
+    opacity: 1.0;
+}
+
+.weightbar {
+    fill : green;
+}
+
+.heading {
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+    font-size: 50px;
+}
+
+.subheading {
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+    font-size: 18px;
+}
+
+.tick text {
+    fill: gray;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+    font-size: 15px;
+}
+
+.tick line, .domain {
+    stroke: gray;
+}
+
+.text {
+    fill : black;
+    opacity: 0.0;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+    font-size: 20px;
+}
