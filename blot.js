@@ -22,7 +22,7 @@ heightbands.append("rect")
             .attr("width", "30")
             .attr("x", "25%")
             .attr("y", function(datapoint, index) { return (400 - datapoint);})
-            .attr("opacity", function(datapoint, index) { return 1.0 - 3.0 * Math.abs((datapoint - average(data_array.height)) / average(data_array.height));});
+            .attr("opacity", function(datapoint, index) { return 1.0 - 3.5 * Math.abs((datapoint - average(data_array.height)) / average(data_array.height));});
 
 weightbands = svg.selectAll(".weightbar")
                 .data(band_values.weight)
@@ -43,13 +43,13 @@ weightbands.append("rect")
 heightbands.append("svg:text")
             .text(function(datapoint) { return Math.round(datapoint * 100) / 100 + " cm"; })
                 .attr("class", "text")
-                .attr("x", "27.8%")
+                .attr("x", "28.5%")
                 .attr("y", function(datapoint, index) { return (410 - datapoint);});
 
 weightbands.append("svg:text")
             .text(function(datapoint) { return Math.round(datapoint * 100) / 100 + " kg"; })
                 .attr("class", "text")
-                .attr("x", "77.8%")
+                .attr("x", "78.5%")
                 .attr("y", function(datapoint, index) { return (410 - 2.5 * datapoint);});
 
 // add axes
@@ -83,42 +83,42 @@ svg.append("svg:text")
     .text("A Western-Blot Plot")
     .attr("class", "heading")
     .attr("x", "50%")
-    .attr("y", "30%")
+    .attr("y", "300")
     .attr("text-anchor", "middle");
 
 svg.append("svg:text")
     .text("by Ameya Daigavane")
     .attr("class", "subheading")
     .attr("x", "57.2%")
-    .attr("y", "33%")
+    .attr("y", "320")
     .attr("text-anchor", "middle");
 
 svg.append("svg:text")
     .text("Height")
     .attr("class", "heading")
-    .attr("x", "30%")
-    .attr("y", "62.8%")
+    .attr("x", "26%")
+    .attr("y", "550")
     .attr("text-anchor", "middle");
 
 svg.append("svg:text")
     .text("centimetres")
     .attr("class", "subheading")
     .attr("x", "27.3%")
-    .attr("y", "46%")
+    .attr("y", "408")
     .attr("text-anchor", "middle");
 
 svg.append("svg:text")
     .text("Weight")
     .attr("class", "heading")
-    .attr("x", "70%")
-    .attr("y", "62.8%")
+    .attr("x", "74%")
+    .attr("y", "550")
     .attr("text-anchor", "middle");
 
 svg.append("svg:text")
     .text("kilograms")
     .attr("class", "subheading")
     .attr("x", "77%")
-    .attr("y", "46%")
+    .attr("y", "408")
     .attr("text-anchor", "middle");
 
 // function definitions
