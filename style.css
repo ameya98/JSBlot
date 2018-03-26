@@ -31,6 +31,12 @@ html, body {
     font-size: 18px;
 }
 
+.link {
+    fill: blue;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+    font-size: 18px;
+}
+
 .tick text {
     fill: gray;
     font-family: 'IBM Plex Sans Condensed', sans-serif;

@@ -43,13 +43,15 @@ weightbands.append("rect")
 heightbands.append("svg:text")
             .text(function(datapoint) { return Math.round(datapoint * 100) / 100 + " cm"; })
                 .attr("class", "text")
-                .attr("x", "28.5%")
+                .attr("x", "25%")
+                .attr("dx", "2.5em")
                 .attr("y", function(datapoint, index) { return (410 - datapoint);});
 
 weightbands.append("svg:text")
             .text(function(datapoint) { return Math.round(datapoint * 100) / 100 + " kg"; })
                 .attr("class", "text")
-                .attr("x", "78.5%")
+                .attr("x", "75%")
+                .attr("dx", "2.5em")
                 .attr("y", function(datapoint, index) { return (410 - 2.5 * datapoint);});
 
 // add axes
@@ -89,9 +91,36 @@ svg.append("svg:text")
 svg.append("svg:text")
     .text("by Ameya Daigavane")
     .attr("class", "subheading")
-    .attr("x", "57.2%")
+    .attr("x", "57%")
+    .attr("dx", "0.2em")
     .attr("y", "320")
     .attr("text-anchor", "middle");
+
+svg.append("svg:text")
+    .text("A Western-Blot Plot generated from 50 random samples of height and weight.")
+    .attr("class", "subheading")
+    .attr("x", "15%")
+    .attr("y", "630")
+    .attr("text-anchor", "left");
+
+svg.append("svg:text")
+    .text("Every band represents a standard deviation away from the mean. Hover over a band to see the average of all values in the band. See the source code")
+    .attr("class", "subheading")
+    .attr("x", "15%")
+    .attr("y", "630")
+    .attr("dy", "1.5em")
+    .attr("text-anchor", "left");
+
+svg.append("svg:a")
+    .attr("xlink:href", "https://github.com/ameya98/JSBlot")
+    .append("svg:text")
+    .text("here.")
+    .attr("class", "link")
+    .attr("x", "15%")
+    .attr("dx", "60em")
+    .attr("y", "630")
+    .attr("dy", "1.5em")
+    .attr("text-anchor", "left");
 
 svg.append("svg:text")
     .text("Height")
