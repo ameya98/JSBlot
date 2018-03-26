@@ -99,28 +99,36 @@ svg.append("svg:text")
 svg.append("svg:text")
     .text("A Western-Blot Plot generated from 50 random samples of height and weight.")
     .attr("class", "subheading")
-    .attr("x", "15%")
+    .attr("x", "50%")
     .attr("y", "630")
-    .attr("text-anchor", "left");
+    .attr("text-anchor", "middle");
 
 svg.append("svg:text")
-    .text("Every band represents a standard deviation away from the mean. Hover over a band to see the average of all values in the band. See the source code")
+    .text("Every band represents a standard deviation away from the mean.")
     .attr("class", "subheading")
-    .attr("x", "15%")
+    .attr("x", "50%")
     .attr("y", "630")
     .attr("dy", "1.5em")
-    .attr("text-anchor", "left");
+    .attr("text-anchor", "middle");
+
+svg.append("svg:text")
+    .text("Hover over a band to see the average of all values in the band. See the source code")
+    .attr("class", "subheading")
+    .attr("x", "50%")
+    .attr("y", "630")
+    .attr("dy", "3em")
+    .attr("text-anchor", "middle");
 
 svg.append("svg:a")
     .attr("xlink:href", "https://github.com/ameya98/JSBlot")
     .append("svg:text")
     .text("here.")
     .attr("class", "link")
-    .attr("x", "15%")
-    .attr("dx", "60em")
+    .attr("x", "50%")
+    .attr("dx", "18em")
     .attr("y", "630")
-    .attr("dy", "1.5em")
-    .attr("text-anchor", "left");
+    .attr("dy", "3em")
+    .attr("text-anchor", "middle");
 
 svg.append("svg:text")
     .text("Height")
@@ -132,7 +140,8 @@ svg.append("svg:text")
 svg.append("svg:text")
     .text("centimetres")
     .attr("class", "subheading")
-    .attr("x", "27.3%")
+    .attr("x", "26%")
+    .attr("dx", "1.5em")
     .attr("y", "408")
     .attr("text-anchor", "middle");
 
@@ -146,7 +155,8 @@ svg.append("svg:text")
 svg.append("svg:text")
     .text("kilograms")
     .attr("class", "subheading")
-    .attr("x", "77%")
+    .attr("x", "75%")
+    .attr("dx", "2em")
     .attr("y", "408")
     .attr("text-anchor", "middle");
 
