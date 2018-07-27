@@ -132,8 +132,9 @@ app.post("/process", function(request, response){
 
        // Place the file in uploads folder
        sampleFile.mv(__dirname + "/uploads/" + (sampleFile.name.split(".")[0]) + stringID + ".csv", function(err) {
-           if (err)
-           return response.status(500).send(err);
+           if(err){
+               return response.status(500).send(err);
+           }
        });
 
        // Parse file line by line
@@ -184,16 +185,24 @@ app.post("/process", function(request, response){
 
                for(var i = 0; i < linelength; i += 1)
                {
-                   data_arrays[keys[i]].push(Number(splitline[i]));
+                   if(!isNaN(splitline[i]) && !isNaN(parseFloat(splitline[i]))) {
+                       data_arrays[keys[i]].push(Number(splitline[i]));
+                   }
+                   else {
+                      console.log("Error in file.");
+
+                      failflag = true;
+                      lineReader.emit('close');
+                      lineReader.removeListener('line', parseline);
+                      return response.status(500).send("Incorrect entry in csv file - check line " + String(data_arrays[keys[0]].length + 2) + ": " + line);
+                   }
                }
            }
        });
 
-       lineReader.on('close', function () {
+       lineReader.on('close', function onclose() {
 
            if(!failflag && (numlines > 1)) {
-
-               console.log("data_arrays is", data_arrays);
 
                // now calculate band values
                var band_values = calculate_bands(data_arrays);
@@ -206,11 +215,6 @@ app.post("/process", function(request, response){
 
                // redirect to /plot/ URL
                response.redirect('/plot');
-               return;
-           }
-           else {
-               // back to the main page!
-               response.redirect('/');
                return;
            }
 
@@ -239,7 +243,7 @@ app.post("/uploads", function(request, response){
         if (fs.existsSync(csvpath)) {
             fs.unlink(csvpath, function(err){
                 if(err) {
-                    return console.log(err);
+                   return response.status(500).send(err);
                 }
 
                 console.log(csvpath + " deleted.");

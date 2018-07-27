@@ -90,7 +90,7 @@ function add_svg()
             .call(keyyAxis);
 
             svg.append("svg:text")
-            .text(key.charAt(0).toUpperCase() + key.substr(1))
+            .text(key)
             .attr("class", "labels")
             .attr("x", currcount * $(window).width() / keycount)
             .attr("y", 1.1 * axisydist)
@@ -124,7 +124,7 @@ function add_svg()
     .attr("text-anchor", "middle");
 
     svg.append("svg:text")
-    .text("Every colored band represents a cluster of values within a multiple of a standard deviation away from the mean - represented by the black band.")
+    .text("Every colored band represents a cluster of values within a multiple of a standard deviation away from the mean - represented by the thin grey band.")
     .attr("class", "subheading")
     .attr("x", "50%")
     .attr("y", 1.25 * axisydist)
