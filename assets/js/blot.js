@@ -177,6 +177,7 @@ function getdata()
            url: "/uploads",
            data: {
                filename: localStorage.getItem('filename'),
+               ID: localStorage.getItem('ID'),
            },
            success: function (response) {
                console.log('Success! Server responded with');

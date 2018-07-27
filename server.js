@@ -105,22 +105,22 @@ var util = require('util');
 var fileuploaded = false;
 var app = express();
 
-app.use('/assets', express.static(__dirname + 'assets'));
-app.use('/', express.static(__dirname));
+app.use("/assets", express.static(__dirname + 'assets'));
+app.use("/", express.static(__dirname));
 
 app.use(fileUpload());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.get('/', function(request, response){
+app.get("/", function(request, response){
 
     fileuploaded = false;
     response.sendFile(__dirname + "/index.html");
 
 })
 
-app.post('/process', function(request, response){
+app.post("/process", function(request, response){
 
    if (!request.files){
         return response.status(400).send('No files were uploaded.');
@@ -128,16 +128,17 @@ app.post('/process', function(request, response){
    else {
 
        let sampleFile = request.files.sampleFile;
+       let stringID = request.body.ID;
 
        // Place the file in uploads folder
-       sampleFile.mv('uploads/' + sampleFile.name, function(err) {
+       sampleFile.mv("uploads/" + (sampleFile.name.split(".")[0]) + stringID + ".csv", function(err) {
            if (err)
            return response.status(500).send(err);
        });
 
        // Parse file line by line
        var lineReader = require('readline').createInterface({
-           input: require('fs').createReadStream('uploads/' + sampleFile.name)
+           input: require('fs').createReadStream("uploads/" + (sampleFile.name.split(".")[0]) + stringID + ".csv")
        });
 
        var firstline = true;
@@ -198,9 +199,9 @@ app.post('/process', function(request, response){
                var band_values = calculate_bands(data_arrays);
                console.log("band_values is", band_values);
 
-               fs.writeFileSync('uploads/' + (sampleFile.name.split(".")[0]) + "_processed.txt", JSON.stringify(band_values))
+               fs.writeFileSync("uploads/" + (sampleFile.name.split(".")[0]) + stringID + "_processed.json", JSON.stringify(band_values))
 
-               console.log("The file was saved with name:", 'uploads/' + (sampleFile.name.split(".")[0]) + "_processed.txt");
+               console.log("The file was saved with name:", "uploads/" + (sampleFile.name.split(".")[0]) + stringID + "_processed.json");
                fileuploaded = true;
 
                // redirect to /plot/ URL
@@ -218,7 +219,7 @@ app.post('/process', function(request, response){
 
 })
 
-app.get('/plot', function(request, response){
+app.get("/plot", function(request, response){
 
     if(fileuploaded) {
         response.sendFile(__dirname + "/visual.html");
@@ -228,13 +229,28 @@ app.get('/plot', function(request, response){
     }
 })
 
-app.post('/uploads', function(request, response){
-    fs.readFile("uploads/" + request.body.filename + "_processed.txt", function(err, data){
+app.post("/uploads", function(request, response){
+    fs.readFile("uploads/" + request.body.filename + request.body.ID + "_processed.json", function(err, data){
         if(err) {
             return console.log(err);
         }
 
-        response.send(data);
+        var csvpath = "uploads/" + request.body.filename + request.body.ID + ".csv";
+        if (fs.existsSync(csvpath)) {
+            fs.unlink(csvpath, function(err){
+                if(err) {
+                    return console.log(err);
+                }
+
+                console.log(csvpath + " deleted.");
+                response.send(data);
+
+            })
+        }
+        else {
+            response.send(data);
+        }
+        
     });
 })
 
