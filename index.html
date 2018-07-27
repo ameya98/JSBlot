@@ -4,11 +4,33 @@
     <meta charset="utf-8">
     <title>Western-Blot-like Data Visualization</title>
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Condensed" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script type="text/javascript" src="d3.js"></script>
+    <link rel="stylesheet" type="text/css" href="./assets/css/index.css">
+    <script type="text/javascript" src="./assets/js/jquery-3.3.1.js"></script>
   </head>
 
   <body>
-    <script type="text/javascript" src="blot.js"></script>
+    <h1>A Western-Blot Plot</h1>
+    <div id="alertdiv">
+        Please upload only a .csv or .txt file.
+    </div>
+    <div id="formdiv">
+        Upload a CSV file below to visualize data as a western-blot plot.
+        <br><br>
+        <form ref='uploadForm'
+          id='uploadForm'
+          action='/process'
+          method='post'
+          encType="multipart/form-data">
+            <input type="file" name="sampleFile" id="inputFile"/>
+            <input type='submit' value='Upload!' />
+        </form>
+    </div>
+
+    <div id="credits">
+        <a href="https://github.com/ameya98/">by Ameya Daigavane</a>
+    </div>
+
+    <script type="text/javascript" src="./assets/js/index.js"></script>
+
   </body>
 </html>

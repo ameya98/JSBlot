@@ -1,0 +1,29 @@
+html, body {
+    margin : 0;
+    height : 100%;
+    overflow: hidden;
+    text-align: center;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+}
+
+form, input {
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+}
+
+h1 {
+    font-size: 50px;
+}
+
+#formdiv {
+    margin-top: 150px;
+}
+
+#alertdiv {
+    display: none;
+}
+
+#credits {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
