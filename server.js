@@ -199,7 +199,7 @@ app.post("/process", function(request, response){
                var band_values = calculate_bands(data_arrays);
                console.log("band_values is", band_values);
 
-               fs.writeFileSync(__dirname + "uploads/" + (sampleFile.name.split(".")[0]) + stringID + "_processed.json", JSON.stringify(band_values))
+               fs.writeFileSync(__dirname + "/uploads/" + (sampleFile.name.split(".")[0]) + stringID + "_processed.json", JSON.stringify(band_values))
 
                console.log("The file was saved with name:", "/uploads/" + (sampleFile.name.split(".")[0]) + stringID + "_processed.json");
                fileuploaded = true;
