@@ -1,0 +1,32 @@
+{
+  "name": "samplejsblot",
+  "version": "1.0.0",
+  "description": "A western-blot like data-visualisation web-service",
+  "main": "main.js",
+  "dependencies": {
+    "express": "^4.16.3",
+    "express-fileupload": "^0.4.0",
+    "mustache": "^2.3.0"
+  },
+  "engines": {
+    "node": "8.10.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ameya98/JSBlot.git"
+  },
+  "keywords": [
+    "data-visualization",
+    "d3.js"
+  ],
+  "author": "Ameya Daigavane",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ameya98/JSBlot/issues"
+  },
+  "homepage": "https://github.com/ameya98/JSBlot#readme"
+}
