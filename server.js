@@ -131,14 +131,14 @@ app.post("/process", function(request, response){
        let stringID = request.body.ID;
 
        // Place the file in uploads folder
-       sampleFile.mv(__dirname + "uploads/" + (sampleFile.name.split(".")[0]) + stringID + ".csv", function(err) {
+       sampleFile.mv(__dirname + "/uploads/" + (sampleFile.name.split(".")[0]) + stringID + ".csv", function(err) {
            if (err)
            return response.status(500).send(err);
        });
 
        // Parse file line by line
        var lineReader = require('readline').createInterface({
-           input: require('fs').createReadStream(__dirname + "uploads/" + (sampleFile.name.split(".")[0]) + stringID + ".csv")
+           input: require('fs').createReadStream(__dirname + "/uploads/" + (sampleFile.name.split(".")[0]) + stringID + ".csv")
        });
 
        var firstline = true;
@@ -201,7 +201,7 @@ app.post("/process", function(request, response){
 
                fs.writeFileSync(__dirname + "uploads/" + (sampleFile.name.split(".")[0]) + stringID + "_processed.json", JSON.stringify(band_values))
 
-               console.log("The file was saved with name:", "uploads/" + (sampleFile.name.split(".")[0]) + stringID + "_processed.json");
+               console.log("The file was saved with name:", "/uploads/" + (sampleFile.name.split(".")[0]) + stringID + "_processed.json");
                fileuploaded = true;
 
                // redirect to /plot/ URL
@@ -230,12 +230,12 @@ app.get("/plot", function(request, response){
 })
 
 app.post("/uploads", function(request, response){
-    fs.readFile(__dirname + "uploads/" + request.body.filename + request.body.ID + "_processed.json", function(err, data){
+    fs.readFile(__dirname + "/uploads/" + request.body.filename + request.body.ID + "_processed.json", function(err, data){
         if(err) {
             return console.log(err);
         }
 
-        var csvpath = __dirname + "uploads/" + request.body.filename + request.body.ID + ".csv";
+        var csvpath = __dirname + "/uploads/" + request.body.filename + request.body.ID + ".csv";
         if (fs.existsSync(csvpath)) {
             fs.unlink(csvpath, function(err){
                 if(err) {
