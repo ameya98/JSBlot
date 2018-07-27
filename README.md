@@ -1,4 +1,3 @@
 # JSBlot
-A western-blot plot, made with d3.js.  
-Download all files to the same folder, then open blotsample.html in a web browser.  
-Tested with Google Chrome, version 65.  
+The data visualization tool you need, made with node.js, express.js and d3.js.  
+See a western-blot plot of your data!
