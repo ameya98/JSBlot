@@ -4,4 +4,7 @@ html, body {
     overflow: hidden;
     text-align: center;
     font-family: 'IBM Plex Sans Condensed', sans-serif;
+    background-image: url("/assets/images/blue.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 90%;
 }
