@@ -112,7 +112,9 @@ var idmap = new Map();
 app.use("/assets", express.static(__dirname + 'assets'));
 app.use("/", express.static(__dirname));
 
-app.use(fileUpload());
+app.use(fileUpload({
+  limits: { fileSize: 100 * 1024 * 1024 },
+}));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
