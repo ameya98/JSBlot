@@ -233,7 +233,6 @@ app.post("/process", function(request, response){
 })
 
 app.get("/plot", function(request, response){
-
     if(fileuploaded) {
         return response.sendFile(__dirname + "/assets/html/visual.html");
     }
