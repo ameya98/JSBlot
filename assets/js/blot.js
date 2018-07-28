@@ -109,14 +109,6 @@ function add_svg()
     .attr("text-anchor", "middle");
 
     svg.append("svg:text")
-    .text("by Ameya Daigavane")
-    .attr("class", "subheading")
-    .attr("x", "57%")
-    .attr("dx", "0.2em")
-    .attr("y", "8.5%")
-    .attr("text-anchor", "middle");
-
-    svg.append("svg:text")
     .text("The Western-Blot Plot generated from your dataset.")
     .attr("class", "subheading")
     .attr("x", "50%")

@@ -4,26 +4,56 @@ html, body {
     overflow: hidden;
     text-align: center;
     font-family: 'IBM Plex Sans Condensed', sans-serif;
+    background-image: url("/assets/images/blue.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 90%;
 }
 
-form {
+form, input {
     font-family: 'IBM Plex Sans Condensed', sans-serif;
 }
 
 h1 {
     font-size: 50px;
+    margin-bottom: 0;
+}
+
+#header {
+    margin-top: 20%;
 }
 
 #formdiv {
-    margin-top: 150px;
+    margin-top: 10%;
 }
 
-#alertdiv, #ID {
+#inputFile, #ID {
+    position: absolute;
+    left: -99999rem;
+}
+
+#alertdiv {
     display: none;
+    font-weight: bold;
 }
 
 #credits {
     position: fixed;
     bottom: 10px;
     right: 10px;
+    text-align: right;
+}
+
+.btn {
+  border: 2px solid gray;
+  color: gray;
+  background-color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#submitBtn {
+    border: green;
+    color: black;
 }

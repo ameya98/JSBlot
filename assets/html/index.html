@@ -9,26 +9,39 @@
   </head>
 
   <body>
-    <h1>A Western-Blot Plot</h1>
-    <div id="alertdiv">
-        Please upload only a .csv or .txt file.
+    <div id="header">
+        <h1>A Western-Blot Plot</h1>
+        by Ameya Daigavane
     </div>
+
     <div id="formdiv">
-        Upload a CSV file below to visualize data as a western-blot plot.
+        Upload a dataset as a CSV file below to be visualized as a western-blot plot.
+        <br>
+        (The CSV file must not contain any non-numeric entries, except on the first line, which are treated as the headers.)
+        <br><br>
+        <div id="alertdiv">
+            Please upload only a .csv or .txt file!
+        </div>
         <br><br>
         <form ref='uploadForm'
           id='uploadForm'
           action='/process'
           method='post'
           encType="multipart/form-data">
-            <input type='file' name="sampleFile" id="inputFile"/>
-            <input type='number' name="ID" id="ID"/>
-            <input type='submit' value='Upload!' />
+          <label for="inputFile" class="btn">
+                Choose File:
+                <span id="file-selected"></span>
+          </label>
+          <input type='file' name="sampleFile" id="inputFile"/>
+          <input type='number' name="ID" id="ID" />
+          <br><br>
+          <input class="btn" type='submit' value='Plot!' id="submitBtn" />
         </form>
     </div>
 
     <div id="credits">
-        <a href="https://github.com/ameya98/">by Ameya Daigavane</a>
+        Theme available <a href="https://www.freepik.com/free-photos-vectors/background">here</a>.
+        Developed by <a href="https://github.com/ameya98/">Ameya Daigavane</a>.
     </div>
 
     <script type="text/javascript" src="./assets/js/index.js"></script>
