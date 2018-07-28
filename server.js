@@ -185,16 +185,21 @@ app.post("/process", function(request, response){
 
                for(var i = 0; i < linelength; i += 1)
                {
+                   // empty string/ only whitespace
+                   if(!splitline[i].trim()){
+                       continue;
+                   }
+
                    if(!isNaN(splitline[i]) && !isNaN(parseFloat(splitline[i]))) {
                        data_arrays[keys[i]].push(Number(splitline[i]));
                    }
                    else {
-                      console.log("Error in file.");
+                       console.log("Error in file.");
 
-                      failflag = true;
-                      lineReader.emit('close');
-                      lineReader.removeListener('line', parseline);
-                      return response.status(500).send("Incorrect entry in csv file - check line " + String(data_arrays[keys[0]].length + 2) + ": " + line);
+                       failflag = true;
+                       lineReader.emit('close');
+                       lineReader.removeListener('line', parseline);
+                       return response.status(500).send("Incorrect entry in csv file - check line " + String(data_arrays[keys[0]].length + 2) + ": " + line);
                    }
                }
            }
