@@ -102,8 +102,12 @@ var express = require('express');
 var mustache = require('mustache');
 var fileUpload = require('express-fileupload');
 var util = require('util');
-var fileuploaded = false;
 var app = express();
+
+// security
+var usedstringIDs = new Set();
+var usedserverIDs = new Set();
+var idmap = new Map();
 
 app.use("/assets", express.static(__dirname + 'assets'));
 app.use("/", express.static(__dirname));
@@ -114,10 +118,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get("/", function(request, response){
-
-    fileuploaded = false;
     response.sendFile(__dirname + "/assets/html/index.html");
-
 })
 
 app.post("/process", function(request, response){
@@ -129,6 +130,14 @@ app.post("/process", function(request, response){
 
        let sampleFile = request.files.sampleFile;
        let stringID = request.body.ID;
+
+       // check if valid ID
+       if(isNaN(stringID) || !usedstringIDs.has(Number(stringID))){
+           console.log(usedstringIDs, stringID, Number(stringID));
+           console.log(usedstringIDs.has(Number(stringID)));
+
+           throw new Error("Invalid ID.");
+       }
 
        // Place the file in uploads folder
        sampleFile.mv(__dirname + "/uploads/" + (sampleFile.name.split(".")[0]) + stringID + ".csv", function(err) {
@@ -220,10 +229,21 @@ app.post("/process", function(request, response){
                fs.writeFileSync(__dirname + "/uploads/" + (sampleFile.name.split(".")[0]) + stringID + "_processed.json", JSON.stringify(band_values))
 
                console.log("The file was saved with name:", "/uploads/" + (sampleFile.name.split(".")[0]) + stringID + "_processed.json");
-               fileuploaded = true;
+
+               // add to idmap
+               var serversideID = Math.floor(Math.random() * 100000000);
+               while(usedserverIDs.has(serversideID))
+               {
+                   serversideID = Math.floor(Math.random() * 100000000);
+               }
+
+               usedserverIDs.add(serversideID);
+               idmap.set(Number(stringID), serversideID);
+
+               console.log(idmap);
 
                // redirect to /plot/ URL
-               response.redirect('/plot');
+               response.redirect("/plot" + serversideID);
                return;
            }
 
@@ -232,26 +252,32 @@ app.post("/process", function(request, response){
 
 })
 
-app.get("/plot", function(request, response){
-    if(fileuploaded) {
+app.get("/plot:ID", function(request, response){
+    if(usedserverIDs.has(Number(request.params.ID))) {
         return response.sendFile(__dirname + "/assets/html/visual.html");
     }
     else {
-        return response.redirect('/');
+        return response.sendFile(__dirname + "/assets/html/error.html");
     }
 })
 
 app.post("/uploads", function(request, response){
-    fs.readFile(__dirname + "/uploads/" + request.body.filename + request.body.ID + "_processed.json", function(err, data){
+    if(String(idmap.get(Number(request.body.stringID))) != request.body.serverID){
+        console.log(Number(request.body.stringID), request.body.serverID);
+        console.log(idmap);
+        throw new Error("Invalid URL.");
+    }
+
+    fs.readFile(__dirname + "/uploads/" + request.body.filename + request.body.stringID + "_processed.json", function(err, data){
         if(err) {
-            return response.sendFile(__dirname + "/assets/html/error.html");
+             throw new Error(err);
         }
 
-        var csvpath = __dirname + "/uploads/" + request.body.filename + request.body.ID + ".csv";
+        var csvpath = __dirname + "/uploads/" + request.body.filename + request.body.stringID + ".csv";
         if (fs.existsSync(csvpath)) {
             fs.unlink(csvpath, function(err){
                 if(err) {
-                    return response.sendFile(__dirname + "/assets/html/error.html");
+                    throw new Error(err);
                 }
 
                 console.log(csvpath + " deleted.");
@@ -266,6 +292,17 @@ app.post("/uploads", function(request, response){
     });
 })
 
+app.post("/generateID", function(request, response){
+
+    var stringID = Math.floor(Math.random() * 100000000);
+    while(usedstringIDs.has(stringID))
+    {
+        stringID = Math.floor(Math.random() * 100000000);
+    }
+
+    usedstringIDs.add(stringID);
+    response.send(String(stringID));
+})
 
 app.listen(( process.env.PORT || 5000 ));
 console.log("Server on.");

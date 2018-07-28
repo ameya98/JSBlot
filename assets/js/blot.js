@@ -169,7 +169,8 @@ function getdata()
            url: "/uploads",
            data: {
                filename: localStorage.getItem('filename'),
-               ID: localStorage.getItem('ID'),
+               stringID: localStorage.getItem('ID'),
+               serverID: window.location.href.split("/").pop().replace("plot", ""),
            },
            success: function (response) {
                console.log('Success! Server responded with');
@@ -179,6 +180,9 @@ function getdata()
                console.log(band_values);
 
                add_svg();
+           },
+           error: function() {
+               window.location.replace('/');
            }
        });
 }
