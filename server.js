@@ -116,7 +116,7 @@ app.use(express.json());
 app.get("/", function(request, response){
 
     fileuploaded = false;
-    response.sendFile(__dirname + "/index.html");
+    response.sendFile(__dirname + "/assets/html/index.html");
 
 })
 
@@ -180,16 +180,18 @@ app.post("/process", function(request, response){
                    lineReader.emit('close');
                    lineReader.removeListener('line', parseline);
 
-                   return response.status(500).send("Incorrect entry in csv file - check line " + String(data_arrays[keys[0]].length + 2) + ": " + line);
+                   return response.sendFile(__dirname + "/assets/html/error.html");
+
                }
 
                for(var i = 0; i < linelength; i += 1)
                {
-                   // empty string/ only whitespace
+                   // empty string or only whitespace
                    if(!splitline[i].trim()){
                        continue;
                    }
 
+                   // check if data entry is a number!
                    if(!isNaN(splitline[i]) && !isNaN(parseFloat(splitline[i]))) {
                        data_arrays[keys[i]].push(Number(splitline[i]));
                    }
@@ -199,7 +201,8 @@ app.post("/process", function(request, response){
                        failflag = true;
                        lineReader.emit('close');
                        lineReader.removeListener('line', parseline);
-                       return response.status(500).send("Incorrect entry in csv file - check line " + String(data_arrays[keys[0]].length + 2) + ": " + line);
+
+                       return response.sendFile(__dirname + "/assets/html/error.html");
                    }
                }
            }
@@ -213,6 +216,7 @@ app.post("/process", function(request, response){
                var band_values = calculate_bands(data_arrays);
                console.log("band_values is", band_values);
 
+               // save file
                fs.writeFileSync(__dirname + "/uploads/" + (sampleFile.name.split(".")[0]) + stringID + "_processed.json", JSON.stringify(band_values))
 
                console.log("The file was saved with name:", "/uploads/" + (sampleFile.name.split(".")[0]) + stringID + "_processed.json");
@@ -231,7 +235,7 @@ app.post("/process", function(request, response){
 app.get("/plot", function(request, response){
 
     if(fileuploaded) {
-        response.sendFile(__dirname + "/visual.html");
+        return response.sendFile(__dirname + "/assets/html/visual.html");
     }
     else {
         return response.redirect('/');
@@ -241,14 +245,14 @@ app.get("/plot", function(request, response){
 app.post("/uploads", function(request, response){
     fs.readFile(__dirname + "/uploads/" + request.body.filename + request.body.ID + "_processed.json", function(err, data){
         if(err) {
-            return console.log(err);
+            return response.sendFile(__dirname + "/assets/html/error.html");
         }
 
         var csvpath = __dirname + "/uploads/" + request.body.filename + request.body.ID + ".csv";
         if (fs.existsSync(csvpath)) {
             fs.unlink(csvpath, function(err){
                 if(err) {
-                   return response.status(500).send(err);
+                    return response.sendFile(__dirname + "/assets/html/error.html");
                 }
 
                 console.log(csvpath + " deleted.");
