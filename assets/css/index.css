@@ -23,11 +23,11 @@ h1 {
 }
 
 #formdiv {
-    margin-top: 10%;
+    margin-top: 5%;
     margin-bottom: 10%;
 }
 
-#inputFile, #ID {
+#inputFile, #ID, #sampleChosen {
     position: absolute;
     left: -99999rem;
 }
@@ -45,16 +45,48 @@ h1 {
 }
 
 .btn {
-  border: 2px solid gray;
-  color: gray;
-  background-color: white;
-  padding: 8px 20px;
-  border-radius: 8px;
-  font-size: 20px;
-  font-weight: bold;
+    width: 15%;
+    border: 2px solid #2B8E95;
+    color: #2B8E95;
+    background-color: white;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#ORspan {
+    font-size: 20px;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
 }
 
 #submitBtn {
-    border: green;
+    width: 5%;
+    border: black;
     color: black;
+}
+
+#submitBtn:hover {
+    background-color: lightgray;
+}
+
+#sampleFileLabel {
+    border: 2px solid green;
+    color: green;
+    display: inline-block;
+    width: 17%;
+}
+
+#sampleFileLabel:hover {
+    background-color: #DAF7A6;
+}
+
+#inputFileLabel {
+    display: inline-block;
+    width: 17%;
+}
+
+#inputFileLabel:hover {
+    background-color: #B2E4E8;
 }

@@ -263,7 +263,22 @@ app.get("/plot:ID", function(request, response){
     }
 })
 
+app.get("/sample", function(request, response){
+    return response.sendFile(__dirname + "/assets/html/sample.html");
+})
+
+app.post("/getsample", function(request, response){
+    fs.readFile(__dirname + "/uploads/sample/sample.json", function(err, data){
+        if(err) {
+             throw new Errors(err);
+        }
+
+        response.send(data);
+    });
+})
+
 app.post("/uploads", function(request, response){
+
     if(String(idmap.get(Number(request.body.stringID))) != request.body.serverID){
         console.log(Number(request.body.stringID), request.body.serverID);
         console.log(idmap);
@@ -290,7 +305,6 @@ app.post("/uploads", function(request, response){
         else {
             response.send(data);
         }
-
     });
 })
 

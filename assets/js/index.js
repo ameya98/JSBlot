@@ -1,3 +1,9 @@
+/*
+    File: index.js
+    Author: Ameya Daigavane
+    The front page JS logic that handles the forms.
+*/
+
 $(document).ready(function(){
 
     var fileName = "";
@@ -6,6 +12,10 @@ $(document).ready(function(){
     $('#inputFile').bind('change', function() {
         fileName = $("#inputFile").val().split("\\").pop();
         $('#file-selected').html(fileName);
+    });
+
+    $('#sampleChosen').click(function(evt){
+        window.location.href = '/sample';
     });
 
     $("#uploadForm").submit(function(evt){
@@ -39,7 +49,7 @@ $(document).ready(function(){
 
                        $("#uploadForm").unbind('submit');
                        $("#uploadForm").submit();
-                       
+
                    },
                    error: function(error) {
                        window.location.replace('/');

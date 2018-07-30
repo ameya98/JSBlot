@@ -1,7 +1,7 @@
 /*
-    File: blot.js
+    File: sample.js
     Author: Ameya Daigavane
-    Retrieves band values through a POST request and plots the colored bands of clustered data points with d3.js
+    Retrieves band values through a POST request and plots the colored bands of clustered data points with d3.js - but of a specific file.
 */
 
 var band_values;
@@ -123,7 +123,7 @@ function add_svg()
     .attr("text-anchor", "middle");
 
     svg.append("svg:text")
-    .text("The Western-Blot Plot generated from your dataset.")
+    .text("A sample Western-Blot Plot.")
     .attr("class", "subheading")
     .attr("x", "50%")
     .attr("y", 1.23 * axisydist)
@@ -180,12 +180,7 @@ function getdata()
 {
     $.ajax({
            type: "POST",
-           url: "/uploads",
-           data: {
-               filename: localStorage.getItem('filename'),
-               stringID: localStorage.getItem('ID'),
-               serverID: window.location.href.split("/").pop().replace("plot", ""),
-           },
+           url: "/getsample",
            success: function (response) {
                console.log('Success! Server responded with');
                console.log(response);
@@ -196,7 +191,7 @@ function getdata()
                add_svg();
            },
            error: function() {
-               window.location.replace('/');
+               window.location.href = '/';
            }
        });
 }

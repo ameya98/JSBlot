@@ -16,31 +16,38 @@
     </div>
 
     <div id="formdiv">
-        Upload a dataset as a CSV file below to be visualized as a western-blot plot.
+        <form ref='uploadForm'
+          id='uploadForm'
+          action='/process'
+          method='post'
+          encType="multipart/form-data">
+          <label for="sampleChosen" class="btn" id="sampleFileLabel">
+                <span id="sample-selected">Choose the sample dataset!</span>
+          </label>
+          <input type='radio' name="sampleChosen" id="sampleChosen"/>
+          <span id="ORspan">
+           or
+          </span>
+          <label for="inputFile" class="btn" id="inputFileLabel">
+                <span id="file-selected">Choose your own dataset!</span>
+          </label>
+          <input type='file' name="sampleFile" id="inputFile"/>
+          <input type='number' name="ID" id="ID" />
+          <br><br>
+          <input class="btn" type='submit' value='Go!' id="submitBtn" />
+        </form>
+        <br>
+        Upload a dataset as a CSV file to be visualized as a western-blot plot.
         <br>
         (The CSV file must not contain any non-numeric entries, except on the first line, which are treated as the headers.)
         <br><br>
         <div id="alertdiv">
             Please upload only a .csv or .txt file!
         </div>
-        <br><br>
-        <form ref='uploadForm'
-          id='uploadForm'
-          action='/process'
-          method='post'
-          encType="multipart/form-data">
-          <label for="inputFile" class="btn">
-                <span id="file-selected">Choose File!</span>
-          </label>
-          <input type='file' name="sampleFile" id="inputFile"/>
-          <input type='number' name="ID" id="ID" />
-          <br><br>
-          <input class="btn" type='submit' value='Plot!' id="submitBtn" />
-        </form>
     </div>
 
     <div id="credits">
-        Icons made by <a href="https://www.flaticon.com/authors/vaadin" title="Vaadin">Vaadin</a>. 
+        Icons made by <a href="https://www.flaticon.com/authors/vaadin" title="Vaadin">Vaadin</a>.
         Theme available <a href="https://www.freepik.com/free-photos-vectors/background">here</a>.
         Developed by <a href="https://github.com/ameya98/">Ameya Daigavane</a>.
     </div>
